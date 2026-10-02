@@ -1,0 +1,12 @@
+node_modules/
+
+# Standard Node.js exclusions
+.env
+npm-debug.log*
+
+# SQLite Database (to prevent committing large data files)
+database/*.db
+
+# OS specific files
+.DS_Store
+Thumbs.db

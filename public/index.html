@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Instagram Competitor Tracker - Monitor and analyze Instagram creators with historical performance tracking and actionable insights.">
+    <title>InstaTrack — Competitor Intelligence</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="sidebar-logo-icon">📊</div>
+                    <div>
+                        <h1>InstaTrack</h1>
+                        <span>Competitor Intelligence</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" id="sidebarNav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <div class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')">
+                        <span class="nav-item-icon">🏠</span>
+                        Dashboard
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Master Lists</div>
+                    <div class="nav-item" data-page="lists" onclick="navigate('lists')">
+                        <span class="nav-item-icon">📋</span>
+                        All Lists
+                        <span class="nav-item-badge" id="listCount">0</span>
+                    </div>
+                    <div id="masterListNav"></div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Tools</div>
+                    <div class="nav-item" data-page="scraper" onclick="navigate('scraper')">
+                        <span class="nav-item-icon">🔄</span>
+                        Scraper Control
+                    </div>
+                    <div class="nav-item" data-page="settings" onclick="navigate('settings')">
+                        <span class="nav-item-icon">⚙️</span>
+                        Settings
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="scraper-status" id="scraperStatusFooter">
+                    <div class="scraper-status-dot idle" id="scraperDot"></div>
+                    <span id="scraperStatusText">Scraper idle</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span>InstaTrack</span>
+                        <span class="breadcrumb-sep">›</span>
+                        <span class="current">Dashboard</span>
+                    </div>
+                </div>
+                <div class="top-bar-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="triggerFullScrape()" id="scrapeAllBtn">
+                        🔄 Scrape All
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="openCreateListModal()">
+                        ＋ New List
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-container" id="pageContainer">
+                <!-- Dynamic content injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- CREATE LIST MODAL -->
+    <div class="modal-overlay" id="createListModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Master List</h3>
+                <button class="modal-close" onclick="closeModal('createListModal')">✕</button>
+            </div>
+            <form onsubmit="handleCreateList(event)">
+                <div class="form-group">
+                    <label class="form-label">List Name *</label>
+                    <input type="text" class="form-input" id="listName" placeholder="e.g. Coffee Shop Competitors"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input" id="listDescription"
+                        placeholder="Describe what this list tracks..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags (comma separated)</label>
+                    <input type="text" class="form-input" id="listTags"
+                        placeholder="e.g. client, competitor, restaurant">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('createListModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create List</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADD CREATOR MODAL -->
+    <div class="modal-overlay" id="addCreatorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Creator</h3>
+                <button class="modal-close" onclick="closeModal('addCreatorModal')">✕</button>
+            </div>
+            <form onsubmit="handleAddCreator(event)">
+                <div class="form-group">
+                    <label class="form-label">Instagram Username or URL *</label>
+                    <input type="text" class="form-input" id="creatorUsername"
+                        placeholder="e.g. @username or https://instagram.com/username" required>
+                </div>
+                <input type="hidden" id="creatorMasterListId">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('addCreatorModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Creator</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/pages.js"></script>
+    <script src="/creator.js"></script>
+    <script src="/settings.js"></script>
+    <script src="/app.js"></script>
+</body>
+
+</html>
